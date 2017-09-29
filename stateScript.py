@@ -7,7 +7,7 @@ import sys
 def main(argv):
     input_value = str(argv)
     url = 'http://services.groupkt.com/state/get/USA/all'
-    found = 'false'  # variable to track search success.
+    found = 'false'  # flag to track search success.
 
     # Determine key from user input.
     if input_value.__len__() > 2:
@@ -16,10 +16,10 @@ def main(argv):
         my_key = 'abbr'
 
     # Required: character encoding, use requests module to manage encoding.
-    # Required: keep connection alive, use Session.
+    # Required: keep connection alive, use Session to persist TCP connection.
     s = requests.Session()
     r = s.get(url)
-    full_dict = r.json()
+    full_dict = r.json()  # parse json, store in dictionary.
 
     # Search each state container dict for the user input.
     for k in full_dict['RestResponse']['result']:
